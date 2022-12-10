@@ -26,7 +26,7 @@ add_selectbox = st.sidebar.selectbox(
 )
 
 #df1 = pd.read_csv('/Users/csuftitan/Downloads/charts.csv')
-df1 = pd.read_csv('https://www.kaggle.com/datasets/dhruvildave/spotify-charts?select=charts.csv')
+df1 = pd.read_csv('https://drive.google.com/file/d/1fUjXJI49cMAsYlnU_l78gKOM5eKqx0os/view?usp=share_link')
 df1.head()
 st.header('Header of Dataframe')
 st.write(df1.head())
@@ -34,7 +34,7 @@ st.write(df1.head())
 spark = SparkSession.builder.appName("spark_app").getOrCreate()
 
 #df = spark.read.csv(path='/Users/csuftitan/Downloads/charts.csv', inferSchema=True, header=True)
-df = spark.read.csv(path='https://www.kaggle.com/datasets/dhruvildave/spotify-charts?select=charts.csv', inferSchema=True, header=True)
+df = spark.read.csv(path='https://drive.google.com/file/d/1fUjXJI49cMAsYlnU_l78gKOM5eKqx0os/view?usp=share_link', inferSchema=True, header=True)
 
 
 df = df.withColumn("rank", f.col("rank").cast(t.LongType())).withColumn("date", f.col("date").cast(t.DateType())).withColumn("streams", f.col("streams").cast(t.IntegerType()))
