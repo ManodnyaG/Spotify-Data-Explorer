@@ -12,7 +12,7 @@ st.text('This is a web app to allow exploration of Spotify Charts Data')
 
 import pandas as pd 
 import numpy as np
-from pyspark import SparkConf, SparkContext
+
 from pyspark.sql import SparkSession
 import pyspark.sql.types as t
 import pyspark.sql.functions as f
