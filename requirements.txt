@@ -1,6 +1,0 @@
-streamlit==1.15.2
-pandas==1.4.4
-pyspark==3.3.1
-seaborn==0.11.2
-matplotlib==3.5.2
-spark== 3.3.1
