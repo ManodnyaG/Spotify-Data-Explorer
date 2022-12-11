@@ -17,12 +17,12 @@ import seaborn as sns
 
 import matplotlib.pyplot as plt
 
-
+#read csv
 df1 = pd.read_csv('/Users/csuftitan/Downloads/charts.csv')
 df1.head()
 
 
-#create spark session to get create an entry point
+#create spark session to create an entry point
 spark = SparkSession.builder.appName("spark_app").getOrCreate()
 #read csv file in spark
 df = spark.read.csv(path='/Users/csuftitan/Downloads/charts.csv', inferSchema=True, header=True)
@@ -36,7 +36,7 @@ df.count()
 df.registerTempTable("charts")
 
 ##############################################################
-#ectract data of rank,title which is at rank 1 in argentina
+#extract data of rank,title which is at rank 1 in argentina
 query = "SELECT title, count(title) AS count FROM charts WHERE rank = 1 and region = 'Argentina' GROUP BY title  ORDER BY count DESC;" 
 reg = spark.sql(query).toPandas().head(10) 
 
@@ -137,13 +137,11 @@ query2 = ("SELECT region,count(trend) as trend FROM charts WHERE title like 'Sha
 art = spark.sql(query2).toPandas()
 
 reg = art.region.tolist()
-reg = reg[:30]
+reg = reg[:30] #only top 30 as the list is huge
 move_up = art.trend.tolist()
 move_up = move_up[:30]
 
-
-
-
+#save the above in a dataframe
 df1 = pd.DataFrame({
   'move_up': move_up,
   'region': reg
@@ -200,7 +198,7 @@ fig, axes = plt.subplots(figsize=(20,7))
 sns.lineplot('date', 'rank', data=q, hue='title', ci=None).set_title('Trends in Top 200')
 
 ###############################################################################
-
+#By running the below query we will get the top songs of Ed Sheeran
 p = spark.sql('''
 SELECT title, MIN(rank) rank, count(rank) count 
 FROM charts 
